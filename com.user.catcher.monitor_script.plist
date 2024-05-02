@@ -4,7 +4,7 @@
 <dict>
     <key>Label</key>
     <string>com.user.catcher.monitor_script</string>
-    
+
     <key>ProgramArguments</key>
     <array>
         <string>/opt/homebrew/bin/python</string>
