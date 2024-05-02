@@ -1,1 +1,6 @@
-pre-commit
+pre-commitjson
+os
+sys
+threading
+queue
+subprocess

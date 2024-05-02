@@ -106,4 +106,32 @@ def init_daemon():
         monitor_thread.join()
 
 if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        if sys.argv[1] == 'install':
+            install_daemon()
+            sys.exit()
+        elif sys.argv[1] == 'uninstall':
+            uninstall_daemon()
+            sys.exit()
+
     init_daemon()
+def install_daemon():
+    """Installs the daemon by adding it to the shell profile."""
+    shell_profile = os.path.expanduser('~/.bash_profile')  # or appropriate shell profile
+    daemon_command = "python /path/to/daemon.py &\n"
+    with open(shell_profile, 'a') as file:
+        file.write(daemon_command)
+    print("Daemon installed. Please restart your terminal.")
+
+def uninstall_daemon():
+    """Uninstalls the daemon by removing it from the shell profile."""
+    shell_profile = os.path.expanduser('~/.bash_profile')  # or appropriate shell profile
+    daemon_command = "python /path/to/daemon.py &\n"
+    with open(shell_profile, 'r') as file:
+        lines = file.readlines()
+    with open(shell_profile, 'w') as file:
+        for line in lines:
+            if line.strip("\n") != daemon_command.strip("\n"):
+                file.write(line)
+    print("Daemon uninstalled. Please restart your terminal.")
+
