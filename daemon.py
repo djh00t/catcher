@@ -40,16 +40,16 @@ def monitor_terminal(queue):
     config = load_config()
     config_path = os.path.expanduser('~/.catcher/config.json')
     last_modified = os.path.getmtime(config_path)
-    
+
     while True:
         line = queue.get()
         if line is None:
             break  # End monitoring if None is received.
-        
+
         new_config, last_modified = check_config_update(last_modified, config_path)
         if new_config:
             config = new_config
-        
+
         for error in config['errors']:
             if error['pattern'] in line:
                 print(f"Detected error: {error['pattern']}. Executing...")
@@ -134,4 +134,3 @@ def uninstall_daemon():
             if line.strip("\n") != daemon_command.strip("\n"):
                 file.write(line)
     print("Daemon uninstalled. Please restart your terminal.")
-
