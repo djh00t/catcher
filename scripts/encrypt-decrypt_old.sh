@@ -1,0 +1,1 @@
+../../local-kube/scripts/encrypt-decrypt_old.sh
