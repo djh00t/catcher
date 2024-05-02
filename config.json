@@ -1,0 +1,8 @@
+{
+    "errors": [
+        {
+            "pattern": "ModuleNotFoundError: No module named 'cfgv'",
+            "action": ["conda", "install", "-y", "pre-commit"]
+        }
+    ]
+}
