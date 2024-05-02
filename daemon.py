@@ -1,14 +1,31 @@
 """
-This module ensures that only a single instance of the daemon runs across all
-terminal sessions. It monitors and interacts with bash sessions, reacting to
-specific outputs based on defined patterns in a configuration file.
+This module implements a daemon that ensures a single instance runs across all
+terminal sessions on a Unix-like system. It monitors and interacts with shell
+sessions, executing predefined actions when specific output patterns are detected.
 
-Usage:
-    Add to ~/.bash_profile:
-        python /path/to/script.py &
+Workflow:
+1. The daemon checks if an instance is already running by looking for a PID file.
+2. If not already running, it starts monitoring terminal sessions.
+3. It reads a configuration file that defines patterns and corresponding actions.
+4. When a pattern is matched in any terminal session, the associated action is
+   executed in that session.
 
-This script checks if it is already running in another terminal and exits if so,
-ensuring only one daemon manages all sessions.
+Configuration:
+The configuration is a JSON file located at ~/.catcher/config.json. It contains
+a list of error patterns and the actions to execute when those patterns are detected.
+
+Execution:
+To start the daemon, add the following line to your shell profile (e.g., ~/.bash_profile):
+    python /path/to/daemon.py &
+
+Ensure that the script is executable and the configuration file is properly set up.
+The daemon will then run in the background, monitoring all terminal sessions.
+It will execute actions in the terminal where the pattern is matched, ensuring
+that the single daemon instance can interact with any session.
+
+The daemon confirms that only one instance is running, but it is designed to work
+with all terminal sessions, allowing actions to be run in whichever session a
+pattern is matched.
 """
 
 import subprocess
